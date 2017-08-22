@@ -13,9 +13,9 @@ add-zsh-hook preexec -execop-preexec
         local IFS=' '
         local arr=( `echo $line` )
         local action=${arr[1]}
-        local type=${arr[3]}
-        local condition="$(IFS=,; echo "${arr[@]:3}")"
-        if [ ! $condition ]; then
+        local matcher=${arr[3]}
+        local cmd_or_env="$(IFS=,; echo "${arr[@]:3}")"
+        if [ ! $cmd_or_env ]; then
             continue
         fi
         if [ ${arr[2]} != 'when' ]; then
@@ -23,8 +23,8 @@ add-zsh-hook preexec -execop-preexec
         fi
 
         ## command_match
-        if [ $type = 'command_match' ]; then
-            if [[ $cmd =~ $condition ]]; then
+        if [ $matcher = 'command_match' ]; then
+            if [[ $cmd =~ $cmd_or_env ]]; then
                 if [ $action = 'deny' ]; then
                     -execop-deny-command $cmd
                 fi
@@ -35,8 +35,8 @@ add-zsh-hook preexec -execop-preexec
         fi
 
         ## command_eq
-        if [ $type = 'command_eq' ]; then
-            if [[ $cmd = $condition ]]; then
+        if [ $matcher = 'command_eq' ]; then
+            if [[ $cmd = $cmd_or_env ]]; then
                 if [ $action = 'deny' ]; then
                     -execop-deny-command $cmd
                 fi
@@ -47,9 +47,9 @@ add-zsh-hook preexec -execop-preexec
         fi
 
         ## env_eq
-        if [ $type = 'env_eq' ]; then
+        if [ $matcher = 'env_eq' ]; then
             local IFS='=';
-            local splitted=( `echo $condition` );
+            local splitted=( `echo $cmd_or_env` );
             local envname=${splitted[1]}
             local envvalue=${splitted[2]}
             local actual="$(eval echo '$'$envname)"
@@ -64,8 +64,8 @@ add-zsh-hook preexec -execop-preexec
         fi
 
         ## env_not_eq
-        if [ $type = 'env_not_eq' ]; then
-            local IFS='='; splitted=( `echo $condition` );
+        if [ $matcher = 'env_not_eq' ]; then
+            local IFS='='; splitted=( `echo $cmd_or_env` );
             local envname=${splitted[1]}
             local envvalue=${splitted[2]}
             local actual="$(eval echo '$'$envname)"
