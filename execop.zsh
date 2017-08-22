@@ -101,7 +101,7 @@ add-zsh-hook preexec -execop-preexec
 -execop-confirm-command() {
     local cmd="${1}"
     local answer=''
-    if vared -c -p "[execop] Do you really want to execute '${cmd}'? [yes/no] " answer &&
+    if vared -c -p "[ExeCop] Do you really want to execute '${cmd}'? [yes/no] " answer &&
             [[ -n $answer && $answer = 'yes' ]]
     then
         # execute!
@@ -112,5 +112,5 @@ add-zsh-hook preexec -execop-preexec
 
 -execop-deny-command() {
     local cmd="${1}"
-    echo "[execop] Canceled '${cmd}'." && kill -INT 0
+    echo "[ExeCop] Canceled '${cmd}'." && kill -INT 0
 }
