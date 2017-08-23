@@ -4,15 +4,17 @@ ExeCop is a checker that check commands and environment variables before execute
 
 ## Install
 
+Add the following line to your .zshrc
+
 ```zsh
-source /path/to/execop.zsh
+. /path/to/execop.zsh
 ```
 
 ## Usage
 
 Put `.execop` file to `/path/to/dir` like `.htaccess`.
 
-`.execop` file looks like following
+`.execop` file looks like following code
 
 ```
 deny when command_match destroy
