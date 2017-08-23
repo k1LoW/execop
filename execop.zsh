@@ -46,6 +46,18 @@ add-zsh-hook preexec -execop-preexec
             fi
         fi
 
+        ## command_not_eq
+        if [ $matcher = 'command_not_eq' ]; then
+            if [ $cmd != $cmd_or_env ]; then
+                if [ $action = 'deny' ]; then
+                    -execop-deny-command $cmd
+                fi
+                if [ $action = 'confirm' ]; then
+                    -execop-confirm-command $cmd
+                fi
+            fi
+        fi
+
         ## env_eq
         if [ $matcher = 'env_eq' ]; then
             local IFS='=';
