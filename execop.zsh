@@ -34,6 +34,18 @@ add-zsh-hook preexec -execop-preexec
             fi
         fi
 
+        ## command_not_match
+        if [ $matcher = 'command_not_match' ]; then
+            if [[ ! $cmd =~ $cmd_or_env ]]; then
+                if [ $action = 'deny' ]; then
+                    -execop-deny-command $cmd
+                fi
+                if [ $action = 'confirm' ]; then
+                    -execop-confirm-command $cmd
+                fi
+            fi
+        fi
+
         ## command_eq
         if [ $matcher = 'command_eq' ]; then
             if [ $cmd = $cmd_or_env ]; then
