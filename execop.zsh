@@ -36,7 +36,7 @@ add-zsh-hook preexec -execop-preexec
 
         ## command_eq
         if [ $matcher = 'command_eq' ]; then
-            if [[ $cmd = $cmd_or_env ]]; then
+            if [ $cmd = $cmd_or_env ]; then
                 if [ $action = 'deny' ]; then
                     -execop-deny-command $cmd
                 fi
