@@ -2,16 +2,16 @@ autoload -Uz add-zsh-hook
 add-zsh-hook preexec -execop-preexec
 
 -execop-preexec() {
-    local conditions=`-execop-gather-dotfiles`
+    local rules=`-execop-gather-dotfiles`
     local cmd="${1}"
-    if [ $conditions = '' ]; then
+    if [ $rules = '' ]; then
         return
     fi
     local IFS=$'\n'
-    local conditions=( `echo $conditions` )
-    for line in ${conditions}; do
+    local rules=( `echo $rules` )
+    for rule in ${rules}; do
         local IFS=' '
-        local arr=( `echo $line` )
+        local arr=( `echo $rule` )
         local action=${arr[1]}
         local matcher=${arr[3]}
         local cmd_or_env="$(IFS=,; echo "${arr[@]:3}")"
@@ -107,19 +107,19 @@ add-zsh-hook preexec -execop-preexec
 
 -execop-gather-dotfiles() {
     local dotfile='.execop'
-    local conditions=''
+    local rules=''
     while :
     do
         if [ "$(pwd)" = "/" ]; then
             break
         fi
         if [ -e "$(pwd)/${dotfile}" ]; then
-            conditions+="`cat $(pwd)/${dotfile}`"
-            conditions+="\n"
+            rules+="`cat $(pwd)/${dotfile}`"
+            rules+="\n"
         fi
         cd ..
     done
-    echo $conditions
+    echo $rules
 }
 
 -execop-confirm-command() {
