@@ -77,7 +77,7 @@ add-zsh-hook preexec -execop-preexec
             local envname=${splitted[1]}
             local envvalue=${splitted[2]}
             local actual="$(eval echo '$'$envname)"
-            if [ $actual ] && [ $envvalue != $actual ]; then
+            if [ $actual ] && [ $envvalue = $actual ]; then
                 if [ $action = 'deny' ]; then
                     -execop-deny-command $cmd
                 fi
@@ -89,7 +89,8 @@ add-zsh-hook preexec -execop-preexec
 
         ## env_not_eq
         if [ $matcher = 'env_not_eq' ]; then
-            local IFS='='; splitted=( `echo $cmd_or_env` );
+            local IFS='=';
+            local splitted=( `echo $cmd_or_env` );
             local envname=${splitted[1]}
             local envvalue=${splitted[2]}
             local actual="$(eval echo '$'$envname)"
