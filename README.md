@@ -4,10 +4,16 @@ ExeCop is a checker that check commands and environment variables before execute
 
 ## Install
 
-Add the following line to your .zshrc
+If you use Zsh, add the following line to your .zshrc
 
 ```zsh
 . /path/to/execop.zsh
+```
+
+If you use Bash, add the following line to your .bashrc
+
+```bash
+. /path/to/execop.bash
 ```
 
 ## Usage
