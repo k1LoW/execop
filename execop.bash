@@ -25,10 +25,10 @@
         if [ $matcher = "command_match" ]; then
             if [[ $cmd =~ $cmd_or_env ]]; then
                 if [ $action = "deny" ]; then
-                    -execop-deny-command $cmd
+                    -execop-deny-command "${cmd}"
                 fi
                 if [ $action = "confirm" ]; then
-                    -execop-confirm-command $cmd
+                    -execop-confirm-command "${cmd}"
                 fi
             fi
         fi
@@ -39,10 +39,10 @@
                 :
             else
                 if [ $action = "deny" ]; then
-                    -execop-deny-command $cmd
+                    -execop-deny-command "${cmd}"
                 fi
                 if [ $action = "confirm" ]; then
-                    -execop-confirm-command $cmd
+                    -execop-confirm-command "${cmd}"
                 fi
             fi
         fi
@@ -51,10 +51,10 @@
         if [ $matcher = "command_eq" ]; then
             if [ $cmd = $cmd_or_env ]; then
                 if [ $action = "deny" ]; then
-                    -execop-deny-command $cmd
+                    -execop-deny-command "${cmd}"
                 fi
                 if [ $action = "confirm" ]; then
-                    -execop-confirm-command $cmd
+                    -execop-confirm-command "${cmd}"
                 fi
             fi
         fi
@@ -63,10 +63,10 @@
         if [ $matcher = "command_not_eq" ]; then
             if [ $cmd != $cmd_or_env ]; then
                 if [ $action = "deny" ]; then
-                    -execop-deny-command $cmd
+                    -execop-deny-command "${cmd}"
                 fi
                 if [ $action = "confirm" ]; then
-                    -execop-confirm-command $cmd
+                    -execop-confirm-command "${cmd}"
                 fi
             fi
         fi
@@ -81,10 +81,10 @@
             actual="$(eval echo '$'$envname)"
             if [ $actual ] && [ $envvalue = $actual ]; then
                 if [ $action = "deny" ]; then
-                    -execop-deny-command $cmd
+                    -execop-deny-command "${cmd}"
                 fi
                 if [ $action = "confirm" ]; then
-                    -execop-confirm-command $cmd
+                    -execop-confirm-command "${cmd}"
                 fi
             fi
         fi
@@ -99,10 +99,10 @@
             actual="$(eval echo '$'$envname)"
             if [ $actual ] && [ $envvalue != $actual ]; then
                 if [ $action = "deny" ]; then
-                    -execop-deny-command $cmd
+                    -execop-deny-command "${cmd}"
                 fi
                 if [ $action = "confirm" ]; then
-                    -execop-confirm-command $cmd
+                    -execop-confirm-command "${cmd}"
                 fi
             fi
         fi
@@ -132,7 +132,7 @@
     if [ "$REPLY" = "yes" ]; then
         :
     else
-        -execop-deny-command $cmd
+        -execop-deny-command "${cmd}"
     fi
 }
 
