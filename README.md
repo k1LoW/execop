@@ -41,7 +41,7 @@ deny when command_match destroy
 | --- | --- |
 | `command_match` | command ~= value |
 | `command_not_match` | ! command ~= value |
-| `command_eq` | ! command = value |
+| `command_eq` | command = value |
 | `command_not_eq` | command != value |
 | `env_eq` | $SOMEENV = value |
 | `env_not_eq` | $SOMEENV != value |
