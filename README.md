@@ -2,6 +2,8 @@
 
 ExeCop is a checker that check commands and environment variables before execute command.
 
+![demo](demo.gif)
+
 ## Install
 
 If you use Zsh, add the following line to your .zshrc
