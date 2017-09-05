@@ -128,7 +128,7 @@
 
 -execop-confirm-command() {
     local cmd="${1}"
-    read -p "[ExeCop] Do you really want to execute '${cmd}'? [yes/no] "
+    read -p $'\e[35;1m[ExeCop] Do you really want to execute \''"${cmd}"$'\'?\e[0m [yes/no] '
     if [ "$REPLY" = "yes" ]; then
         :
     else
