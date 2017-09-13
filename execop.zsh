@@ -114,12 +114,18 @@ add-zsh-hook preexec -execop-preexec
         if [ "$(pwd)" = "/" ]; then
             break
         fi
-        if [ -e "$(pwd)/${dotfile}" ]; then
+        if [ -e "$(pwd)/${dotfile}" ] &&
+           [ "$(pwd)/${dotfile}" != "${HOME}/${dotfile}" ]
+        then
             rules+="`cat $(pwd)/${dotfile}`"
             rules+="\n"
         fi
         cd ..
     done
+    if [ -e "${HOME}/${dotfile}" ]; then
+        rules+="`cat ${HOME}/${dotfile}`"
+        rules+="\n"
+    fi
     echo $rules
 }
 
