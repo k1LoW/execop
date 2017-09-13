@@ -117,12 +117,18 @@
         if [ "$(pwd)" = "/" ]; then
             break
         fi
-        if [ -e "$(pwd)/${dotfile}" ]; then
+        if [ -e "$(pwd)/${dotfile}" ] &&
+               [ "$(pwd)/${dotfile}" != "${HOME}/${dotfile}" ]
+        then
             lines+="`cat $(pwd)/${dotfile}`"
             lines+=$'\n'
         fi
         cd ..
     done
+    if [ -e "${HOME}/${dotfile}" ]; then
+        lines+="`cat ${HOME}/${dotfile}`"
+        lines+=$'\n'
+    fi
     echo "${lines}"
 }
 
