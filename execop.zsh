@@ -132,7 +132,7 @@ add-zsh-hook preexec -execop-preexec
 -execop-confirm-command() {
     local cmd="${1}"
     local answer=''
-    if vared -c -p "%B%F{magenta}[ExeCop] Do you really want to execute '${cmd}'?%f%b [yes/no] " answer &&
+    if vared -c -p "%F{magenta}[ExeCop] Do you really want to execute '%f%B${cmd}%b%F{magenta}'?%f [yes/no] " answer &&
             [[ -n $answer && $answer = 'yes' ]]
     then
         # execute!
