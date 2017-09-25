@@ -4,7 +4,7 @@ add-zsh-hook preexec -execop-preexec
 -execop-preexec() {
     local rules=`-execop-gather-dotfiles`
     local cmd="${1}"
-    if [ $rules = '' ]; then
+    if [ "${rules}" = '' ]; then
         return
     fi
     local IFS=$'\n'
